@@ -166,24 +166,75 @@ function getMiddle(word){
     return getMiddle(newWord);
 }
 
-console.log(getMiddle('test'));
-console.log(getMiddle('seven'));
-console.log(getMiddle('a'));
-console.log(getMiddle('if'));
-console.log(getMiddle('thisisabigoldtest'));
+// console.log(getMiddle('test'));
+// console.log(getMiddle('seven'));
+// console.log(getMiddle('a'));
+// console.log(getMiddle('if'));
+// console.log(getMiddle('thisisabigoldtest'));
 
 function getMiddleChar(s)
 {
   return s.substr(Math.ceil(s.length / 2 - 1), s.length % 2 === 0 ? 2 : 1);
 }
 
-console.log(getMiddleChar('test'));
-console.log(getMiddleChar('seven'));
+// console.log(getMiddleChar('test'));
+// console.log(getMiddleChar('seven'));
 
 
 
 
 
 
+function findGap(a, b){
+    // determine whether a or b is bigger
+    let start
+    let finish
+    let total = 0
+
+    if (a===b){
+        return a;
+    }
+    else if (a<b){
+        start = a;
+        finish = b;
+    }
+    else {
+        start = b,
+        finish = a;
+    }
+    
+    // console.log(start, finish)
+    //loop through numbers
+    while (start <= finish){
+        total += start;
+        start++;
+    }
+    return total
+}
+
+// console.log(findGap(0,3)); // should be 6
+// console.log(findGap(3,0)); // should be 6
+// console.log(findGap(3,3)); // should be 3
 
 
+
+function ternaryGap(a, b){
+    let total = 0; 
+
+    if (a===b){
+        return a;
+    }
+    let start = (a<=b) ? a : b;
+    let finish = (start === a) ? b : a;
+
+    // console.log (start, finish)
+    while (start <= finish){
+        total += start;
+        start++;
+    }
+    return total
+}
+
+console.log(ternaryGap(0,3)); // should be 6
+console.log(ternaryGap(3,0)); // should be 6
+console.log(ternaryGap(3,3)); // should be 3
