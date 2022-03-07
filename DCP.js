@@ -262,20 +262,20 @@ while (n>1){
 return sequence
 }
 
-console.log(collatz(3))
-console.log(collatz(0))
-console.log(collatz(100))
+// console.log(collatz(3))
+// console.log(collatz(0))
+// console.log(collatz(100))
 
 
 function segment(x, space) {
-
+    let startTimer = performance.now()
   //initialise array of minimums
   let minimums = [];
   //keep track of starting index
   let xValue = 0;
   /* work out how many groups of x there will be (number of numbers - (x-1) = groups)*/
   let segments = space.length - (x-1)
-  console.log('number of segs', segments);
+//   console.log('number of segs', segments);
   //for the number of x groups 
   for (let i = 1; i<=segments; i++){
   //     //get first segment
@@ -284,28 +284,65 @@ function segment(x, space) {
           currentSeg.push(space[j]);
       }
       xValue+=1;
-      console.log('current', currentSeg)
+    //   console.log('current', currentSeg)
       //get minimum and store
       let smallest = currentSeg[0];
       for (let value of currentSeg){
           if (value<smallest){
               smallest = value;
           }
-          console.log(smallest);
+        //   console.log(smallest);
       }            
       minimums.push(smallest);
-      console.log(minimums);
+    //   console.log(minimums);
       currentSeg = [];
   }    
   //find max of mins
   let maxOfMins = minimums[0]
-  console.log('minimums', minimums)
+//   console.log('minimums', minimums)
   for (let min of minimums){
-      console.log(maxOfMins,' vs ', min)
+    //   console.log(maxOfMins,' vs ', min)
       if (min>maxOfMins){
       maxOfMins = min;
-  }
-  
-  }return('max', maxOfMins);
+  } 
+  } let endTimer = performance.now();
+  return(`Max of mins is ${maxOfMins}.  This took ${endTimer-startTimer} to complete.`);
 }
-  console.log(segment(1, [1, 5, 1, 2, 3, 1, 2]))
+  console.log(segment(7, [2, 4, 7, 3, 4, 6, 1, 6, 8, 9, 12, 27, 51, 4.05, 3, 1, 8, 12, 2, 4, 7, 3, 4, 6, 1, 6, 8, 9, 12, 27, 51, 4.05, 3, 1, 8, 12, 2, 4, 7, 3, 4, 6, 1, 6, 8, 9, 12, 27, 51, 4.05, 3, 1, 8, 12, 2, 4, 7, 3, 4, 6, 1, 6, 8, 9, 12, 27, 51, 4.05, 3, 1, 8, 12]))
+
+
+//make more efficient
+function efficientSegment(x, space) {
+    let startTimer = performance.now();
+    //initialise array of minimums
+    let minimums = [];
+    //keep track of starting index
+    let xValue = 0;
+    /* work out how many groups of x there will be (number of numbers - (x-1) = groups)*/
+    let segments = space.length - (x-1)
+  //   console.log('number of segs', segments);
+    //for the number of x groups 
+    for (let i = 1; i<=segments; i++){
+        //get first segment
+        let currentSeg = [];
+        for (let j = xValue; j<(xValue+x); j++){
+            currentSeg.push(space[j]);
+        }
+        xValue+=1;
+      //   console.log('current', currentSeg)
+        //get minimum and store
+        currentSeg.sort((a, b) => (a - b));
+        let smallest = currentSeg[0];
+
+          //   console.log(smallest);
+        minimums.push(smallest);
+      //   console.log(minimums);
+        currentSeg = [];
+    }    
+    //find max of mins
+    minimums.sort((a, b) => (a - b));
+    maxOfMins = minimums[minimums.length-1];
+    let endTimer = performance.now();
+     return(`Max of mins is ${maxOfMins}.  This took ${endTimer-startTimer} to complete.`);
+  }
+  console.log(efficientSegment(7, [2, 4, 7, 3, 4, 6, 1, 6, 8, 9, 12, 27, 51, 4.05, 3, 1, 8, 12, 2, 4, 7, 3, 4, 6, 1, 6, 8, 9, 12, 27, 51, 4.05, 3, 1, 8, 12, 2, 4, 7, 3, 4, 6, 1, 6, 8, 9, 12, 27, 51, 4.05, 3, 1, 8, 12, 2, 4, 7, 3, 4, 6, 1, 6, 8, 9, 12, 27, 51, 4.05, 3, 1, 8, 12]))
